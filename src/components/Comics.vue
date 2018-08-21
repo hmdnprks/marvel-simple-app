@@ -24,9 +24,7 @@
             <div class="details">
                 <p>{{ comic.title }}</p>
                 <p>Printed Price : $ {{ comic.prices.find(price => price.type === 'printPrice').price}}</p>
-                <p>Digital Version Price : $ {{ comic.prices.find(price => price.type === 'digitalPurchasePrice').price === undefined ? 'N/A' : comic.prices.find(price => price.type === 'digitalPurchasePrice').price}}</p>
-
-
+                <p>Digital Version Price : $ {{ comic.prices.find(price => price.type === 'digitalPurchasePrice') === undefined ? 'N/A' : comic.prices.find(price => price.type === 'digitalPurchasePrice').price }} <span class="cart-icon"><a :href="comic.urls.find(url => url.type === 'purchase') === undefined ? '#' : comic.urls.find(url => url.type === 'purchase').url" target="_blank" title="Purchase Digital Version"><font-awesome-icon v-show="comic.urls.find(url => url.type === 'purchase') !== undefined" icon="cart-arrow-down"/></a></span></p>
             </div>
         </div>
         <div class="load-more-wrapper">
@@ -81,6 +79,16 @@ export default {
                 .then(response => {
                     this.attributionText = response.data.attributionText
                     let results = response.data.data.results
+                    count += results.length
+                    if(results.length === 0){
+                        this.isLoadMoreShow = false
+                        this.isNoResult = true
+                    }
+                    if(response.data.data.total - count > 0) {
+                        this.isLoadMoreShow = true
+                    } else {
+                        this.isLoadMoreShow = false
+                    }
                     for(let i = 0; i < results.length ; i++){
                         this.comicsDetail.push(results[i])
                     }
@@ -143,7 +151,6 @@ export default {
                 .then(response => {
                     let results = response.data.data.results
                     count += results.length
-                    console.log(response.data.data.total - count)
                     if(results.length === 0){
                         this.isLoadMoreShow = false
                     }
@@ -166,13 +173,13 @@ export default {
         },
         invertPrintPriceSort(){
             this.sortPrintPriceAsc = !this.sortPrintPriceAsc
-            let ascDescPrice = this.sortPriceAsc ? 1 : -1
-            this.comicsDetail.sort((c,d) => ascDescPrice * (c.prices.find(prices.type === 'printPrice').price - d.prices.find(prices.type === 'printPrice'.price))) 
+            let ascDescPrice = this.sortPrintPriceAsc ? 1 : -1
+            this.comicsDetail.sort((c,d) => ascDescPrice * (c.prices.find(price => price.type === 'printPrice').price - d.prices.find(price => price.type === 'printPrice').price)) 
         },
         invertDigitalPriceSort(){
             this.sortDigitalPriceAsc = !this.sortDigitalPriceAsc
             let ascDescDigitalPrice = this.sortDigitalPriceAsc ? 1 : -1
-            this.comicsDetail.sort((c,d) => ascDescDigitalPrice * (c.prices.find(prices.type === 'digitalPurchasePrice').price - d.prices.find(prices.type === 'digitalPurchasePrice'.price))) 
+            this.comicsDetail.sort((c,d) => ascDescDigitalPrice * ((c.prices.find(price => price.type === 'digitalPurchasePrice') === undefined ? 0 : c.prices.find(price => price.type === 'digitalPurchasePrice').price) - (d.prices.find(price => price.type === 'digitalPurchasePrice') === undefined ? 0 : d.prices.find(price => price.type === 'digitalPurchasePrice').price))) 
         }
     }, 
     beforeMount(){
@@ -258,6 +265,15 @@ export default {
                     cursor: pointer;
                 }
             }  
+        }
+        span{
+            a{
+                &:hover {
+                color : #A90F18;
+                font-weight: 900;
+                cursor: pointer;
+            }
+            }
         }
         .urls{
             a{

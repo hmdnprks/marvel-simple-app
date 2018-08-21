@@ -4,10 +4,10 @@ import Vue from 'vue'
 import App from './App'
 import VueRouter from 'vue-router'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faSortUp, faSortDown, faBook, faBookReader, faLink, faAddressCard, faMoneyBill,  } from '@fortawesome/free-solid-svg-icons'
+import { faSortUp, faSortDown, faBook, faBookReader, faLink, faAddressCard, faMoneyBill, faShoppingBasket, faCartArrowDown,  } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-library.add(faSortUp, faMoneyBill, faSortDown, faBook, faBookReader, faLink, faAddressCard)
+library.add(faSortUp, faMoneyBill, faCartArrowDown, faShoppingBasket, faSortDown, faBook, faBookReader, faLink, faAddressCard)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.config.productionTip = false
 
