@@ -23,7 +23,6 @@
             <div class="details">
                 <p @click="goToCharacterDetail(character.id)">{{ character.name }}</p>
                 <p>Comics available : <font-awesome-icon icon="book"/> <span @click="character.comics.available ? goToComicsDetail(character.id) : ''" :class="character.comics.available ? 'available' : ''">{{ character.comics.available }}</span> </p>
-                <p>Stories available : <font-awesome-icon icon="book-reader"/> <span @click="character.stories.available ? goToStoriesDetail(character.id) : ''" :class="character.stories.available ? 'available' : ''">{{ character.stories.available }}</span> </p>
                 <p>Series available : <font-awesome-icon icon="address-card"/> <span @click="character.series.available ? goToSeriesDetail(character.id) : ''" :class="character.series.available ? 'available' : ''">{{ character.series.available }}</span> </p>        
                 <div class="urls">
                     <font-awesome-icon icon="link"/> <a :href="link.url" target="_blank"  v-for="link in character.urls" :key="link.type" :title="link.type">{{ link.type === 'comiclink' ? 'comic' : link.type }}<span></span></a>
@@ -153,9 +152,6 @@ export default {
         },
         goToSeriesDetail(id){
             this.$router.push({ name : 'series', params : {id : id}})
-        },
-        goToStoriesDetail(id){
-            this.$router.push({ name : 'stories', params : {id : id}})
         },
         loadMore(){
             this.isLoading = true

@@ -16,14 +16,12 @@ import Home from './components/Home'
 import Character from './components/Character'
 import Comics from './components/Comics'
 import Series from './components/Series'
-import Stories from './components/Stories'
 
 const routes = [
   {path : '/', component:Home},
   {path : '/character/:id', component:Character, name: 'character'},
   {path : '/comics/:id', component:Comics, name: 'comics'},
-  {path : '/series/:id', component:Series, name: 'series'},
-  {path : '/stories/:id', component:Stories, name: 'stories'}
+  {path : '/series/:id', component:Series, name: 'series'}
 ]
 
 const router = new VueRouter({

@@ -19,7 +19,7 @@
         <p v-show="isNoResult" class="no-result">No result available</p>
         <div class="comic col-md-4 col-sm-12 col-lg-4" v-for="comic in filteredAndSortedData" :key="comic.id">
                 <figure class="char_image">
-                    <img :src="comic.thumbnail.path + '/landscape_xlarge.jpg'">
+                    <img @click="goToDetail(comic.urls.find(seri => seri.type === 'detail') === undefined ? '#' : comic.urls.find(seri => seri.type === 'detail').url)" :src="comic.thumbnail.path + '/landscape_xlarge.jpg'">
                 </figure>            
             <div class="details">
                 <p>{{ comic.title }}</p>
@@ -180,6 +180,9 @@ export default {
             this.sortDigitalPriceAsc = !this.sortDigitalPriceAsc
             let ascDescDigitalPrice = this.sortDigitalPriceAsc ? 1 : -1
             this.comicsDetail.sort((c,d) => ascDescDigitalPrice * ((c.prices.find(price => price.type === 'digitalPurchasePrice') === undefined ? 0 : c.prices.find(price => price.type === 'digitalPurchasePrice').price) - (d.prices.find(price => price.type === 'digitalPurchasePrice') === undefined ? 0 : d.prices.find(price => price.type === 'digitalPurchasePrice').price))) 
+        },
+        goToDetail(url){
+            window.open(url, '_blank')
         }
     }, 
     beforeMount(){
@@ -191,112 +194,5 @@ export default {
 </script>
 
 <style lang="scss">
-    @import '../styles/custom-bootstrap.scss';
-    @import './node_modules/bootstrap/scss/bootstrap.scss';
-.intro{
-    margin-bottom: 0;
-    margin-top : 20px;
-}
 
-.letters-container{
-    text-align: center;
-    font-size: 1.4em;
-    line-height: 3em;
-    background-color: white;
-    color: #A90F18;
-    cursor: pointer;
-    .letter-element{
-        margin-right: 10px;
-        text-align: center;
-        &.activated{
-            justify-content: center;
-            align-items: center;
-            border-radius: 100%;
-            background: #FBDB6A;
-            font-weight: 900;
-            }
-    }
-}
-
-.comic {
-    display: inline-block;
-    height : 100%;
-    background: #fefefe;
-    border : 2px solid #fcfcfc;
-    box-shadow: 0 1px 2px rgba(34, 25, 25, 0.4);
-    border-radius: 2px;
-    margin: 0 20px 15px auto;
-    padding: 20px;
-    transition: opacity .4s ease-in-out;
-    figure{
-        background: #D31F2A;
-        img{
-            width: 100%;
-            height: auto;
-            border-radius: 2px;
-            opacity: 1;
-            -webkit-transition: .3s ease-in-out;
-            transition: .3s ease-in-out;
-        }
-        :hover{
-            opacity: .5;
-            cursor: pointer;
-        }
-    }
-
-    ul>li{
-        list-style: none
-    }
-    .details{
-        p{
-            &:first-child{
-                text-transform: capitalize;
-                font-size: 1rem;
-                font-weight: 900;
-                &:hover{
-                color :#A90F18;
-                cursor: pointer;
-                }  
-            }
-            .available{
-                font-weight: 700;
-                color : #A90F18;
-                &:hover{
-                    cursor: pointer;
-                }
-            }  
-        }
-        span{
-            a{
-                &:hover {
-                color : #A90F18;
-                font-weight: 900;
-                cursor: pointer;
-            }
-            }
-        }
-        .urls{
-            a{
-                &:not(:last-child){
-                    ::after{
-                        content: ' | ';
-                    }
-                }
-                
-            }
-        }
-    }
-}
-.load-more-wrapper{
-    position: relative;
-    margin: 0 auto;
-    button{
-        text-align: center;
-    }
-}
-
-.sort-buttons{
-    display: inline-block;
-
-}
 </style>
