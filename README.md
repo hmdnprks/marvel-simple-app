@@ -1,6 +1,6 @@
-# store-locator
+# marvel-simple-app
 
-> A store locator
+> A simple app built with Marvel APIs
 
 ## Build Setup
 
