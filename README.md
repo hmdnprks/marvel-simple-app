@@ -1,6 +1,15 @@
-# marvel-simple-app
+# Marvel Simple App
 
 > A simple app built with Marvel APIs
+
+# Overview
+> The single page application built with powerful framework called Vue.js and using Marvel APIs as data resource. 
+
+# Features
+1. Show Marvel's characters with search, sort and filter function
+2. Infite list with Load more button
+3. Show character's comic and its details 
+4. Show character's series and its details
 
 ## Build Setup
 
